@@ -5,6 +5,8 @@ output: github_document
 
 ```{r, echo = FALSE, message = FALSE}
 library(tidyverse)
+library(readxl)
+library(haven)
 ```
 
 ## Import same data 
@@ -71,23 +73,28 @@ tail(litters_data)
 ```
 
 
+## Reading from excel 
+
+reading MLB data 
+```{r}
+mlb11_df <- read_excel("data/mlb11.xlsx")
+
+```
+reading LOTR data 
+
+```{r}
+fellow_df <- read_excel("data/LotR_Words.xlsx", range = "B3:D6")
+```
+
+## Reading in SAS data 
+tried to read in SAS file but says some features are unsupported
+```{r, eval = FALSE}
+pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
+```
+
+
+
 
 can list data directory in gitignore file to 
 
 
-I'm an R Markdown document! 
-
-# Section 1
-
-Here's a **code chunk** that samples from 
-a _normal distribution_:
-
-```{r}
-samp = rnorm(100)
-length(samp)
-```
-
-# Section 2
-
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.

@@ -169,21 +169,26 @@ tail(litters_data)
     ## # … with 3 more variables: Pups born alive <int>, Pups dead @ birth <int>,
     ## #   Pups survive <int>
 
-can list data directory in gitignore file to
+## Reading from excel
 
-I’m an R Markdown document!
-
-# Section 1
-
-Here’s a **code chunk** that samples from a *normal distribution*:
+reading MLB data
 
 ``` r
-samp = rnorm(100)
-length(samp)
+mlb11_df <- read_excel("data/mlb11.xlsx")
 ```
 
-    ## [1] 100
+reading LOTR data
 
-# Section 2
+``` r
+fellow_df <- read_excel("data/LotR_Words.xlsx", range = "B3:D6")
+```
 
-I can take the mean of the sample, too! The mean is -0.0586938.
+## Reading in SAS data
+
+tried to read in SAS file but says some features are unsupported
+
+``` r
+pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
+```
+
+can list data directory in gitignore file to
