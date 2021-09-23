@@ -1,7 +1,13 @@
 ---
 title: "Simple document"
-output: html_document
+output: github_document
 ---
+
+```{r, echo = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+
 
 can list data directory in gitignore file to 
 I'm an R Markdown document! 
