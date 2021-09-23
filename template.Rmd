@@ -7,9 +7,74 @@ output: github_document
 library(tidyverse)
 ```
 
+## Import same data 
+
+want to import 'FAS_litters.csv'
+
+relative path (any situation) - 
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv")
+```
+
+absolute path (should not do) - cannot share with other people, gets messed up when you move the file 
+```{r, eval = FALSE}
+#read_csv("/Users/Owner/data_wrangling_i/data/FAS_litters.csv")
+```
+
+Clean variable names 
+```{r}
+names(litters_df)
+
+litters_df <- janitor::clean_names(litters_df)
+```
+
+looking at the data 
+```{r}
+head(litters_df)
+tail(litters_df)
+
+skimr::skim(litters_df)
+```
+```{r, eval = FALSE}
+view(litters_df)
+```
+
+
+## Arguments in `read_csv`
+```{r}
+litters_df <- read_csv(
+  
+  "data/FAS_litters.csv", 
+  skip = 5, 
+  col_names = FALSE, 
+  na = "Low8"
+)
+```
+
+## Parsing columns 
+
+```{r}
+litters_data = read_csv(file = "./data/FAS_litters.csv",
+  col_types = cols(
+    Group = col_character(),
+    `Litter Number` = col_character(),
+    `GD0 weight` = col_double(),
+    `GD18 weight` = col_double(),
+    `GD of Birth` = col_integer(),
+    `Pups born alive` = col_integer(),
+    `Pups dead @ birth` = col_integer(),
+    `Pups survive` = col_integer()
+  )
+)
+
+tail(litters_data)
+```
+
 
 
 can list data directory in gitignore file to 
+
+
 I'm an R Markdown document! 
 
 # Section 1
