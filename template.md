@@ -3,6 +3,9 @@ Simple document
 
 ## Import same data
 
+can list data directory in gitignore file to prevent it from going to
+github
+
 want to import ‘FAS\_litters.csv’
 
 relative path (any situation) -
@@ -191,4 +194,17 @@ tried to read in SAS file but says some features are unsupported
 pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
 ```
 
-can list data directory in gitignore file to
+## why to never use `read.csv`
+
+it prints out the entire data table and provides no info about column
+types, row/col number like `read_csv` it doesn’t give `tibble`
+
+``` r
+litter_df_base <- read.csv("data/FAS_litters.csv")
+```
+
+## Exporting data
+
+``` r
+write_csv(fellow_df, "data/fellowship_words.csv")
+```
