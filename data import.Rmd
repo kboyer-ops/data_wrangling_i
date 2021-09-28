@@ -81,3 +81,13 @@ Double equal sign is a logical, single equal sign assigns value
 
 drop_na gets rid of all with missing values, adding a column to it removes rows with missing data for that variable 
 
+
+## Mutate 
+
+```{r}
+mutate(litters_df, 
+       weight_change = gd18_weight - gd0_weight, 
+       group = str_to_lower(group))
+
+```
+
