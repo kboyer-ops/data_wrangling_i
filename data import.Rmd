@@ -75,7 +75,6 @@ filter(litters_df, group == "Con7" | gd_of_birth == 20)
 
 drop_na(litters_df)
 drop_na(litters_df, gd0_weight)
-
 ```
 Double equal sign is a logical, single equal sign assigns value 
 
@@ -88,6 +87,13 @@ drop_na gets rid of all with missing values, adding a column to it removes rows 
 mutate(litters_df, 
        weight_change = gd18_weight - gd0_weight, 
        group = str_to_lower(group))
-
 ```
 
+
+## Arrange 
+
+```{r}
+arrange(litters_df, desc(gd0_weight))
+arrange(litters_df, gd_of_birth, desc(gd0_weight))
+```
+Can arrange by multiple things, 
