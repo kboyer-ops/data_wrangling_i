@@ -120,9 +120,25 @@ litters_df <- read_csv("data/FAS_litters.csv") %>%
                   drop_na(weight_change) %>% 
                   filter(group %in% c("con7", "con8")) %>% 
                   select(litter_number, group, weight_change, everything())
-                         
-
 ```
 
+# Learning Check 
+
+Learning Assessment: Write a chain of commands that:
+
+loads the pups data
+cleans the variable names
+filters the data to include only pups with sex 1
+removes the PD ears variable
+creates a variable that indicates whether PD pivot is 7 or more days
+
+
+```{r}
+read_csv("data/FAS_pups.csv") %>% 
+  janitor::clean_names() %>% 
+  filter(sex == 1) %>% 
+  select(!pd_ears) %>% 
+  mutate(PD_7 = pd_pivot >= 7)
+```
 
 
