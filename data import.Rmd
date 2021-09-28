@@ -9,6 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(tidyverse)
+library(haven)
+```
+
+
 ## Import same data 
 can list data directory in gitignore file to prevent it from going to github 
 
@@ -25,6 +31,29 @@ pups_df <- janitor::clean_names(pups_df)
 
 ```
 
+```{r}
+select(litters_df, group, litter_number)
+select(litters_df, group, gd0_weight, gd18_weight)
 
+select(litters_df, group, gd0_weight:gd_of_birth)
+
+select(litters_df, starts_with("pups"))
+
+select(litters_df, GROUP = group, litter_number)
+
+select(litters_df, litter_number, everything()) #rearranges columns 
+relocate(litters_df, litter_number)
+```
+
+Can also use 'ends_with()' or 'contains()'
+can rename variables in select(), group --> GROUP 
+
+## Learning check 
+In the pups data, select the columns containing litter number, sex, and PD ears.
+```{r}
+select(pups_df, litter_number, sex, pd_ears)
+
+
+```
 
 
