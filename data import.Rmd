@@ -49,11 +49,30 @@ Can also use 'ends_with()' or 'contains()'
 can rename variables in select(), group --> GROUP 
 
 ## Learning check 
+
 In the pups data, select the columns containing litter number, sex, and PD ears.
 ```{r}
 select(pups_df, litter_number, sex, pd_ears)
+```
+
+## Filter 
+
+```{r}
+filter(litters_df, gd_of_birth == 20)
+filter(litters_df, group == "Con7")
+
+filter(litters_df, gd0_weight < 21)
+filter(litters_df, gd0_weight > 23)
+
+filter(litters_df, pups_survive != 4)
+filter(litters_df, pups_survive == 4)
+
+filter(litters_df, !(group == "Con7"))
+filter(litters_df, group %in% c("Con7", "Con8")) #con7 or con8
+
+filter(litters_df, group == "Con7" , gd_of_birth == 20)
 
 
 ```
-
+Double equal sign is a logical, single equal sign assigns value 
 
