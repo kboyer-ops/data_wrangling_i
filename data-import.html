@@ -568,7 +568,50 @@ pups_df &lt;- read_csv(&quot;data/FAS_pups.csv&quot;)</code></pre>
 ## 10 Mod7  #5/3/83/5-2         22.6        37            19               5
 ## # … with 39 more rows, and 2 more variables: pups_dead_birth &lt;dbl&gt;,
 ## #   pups_survive &lt;dbl&gt;</code></pre>
-<p>Can arrange by multiple things,</p>
+<p>Can arrange by multiple things</p>
+</div>
+<div id="pipes" class="section level2">
+<h2>Pipes</h2>
+<pre class="r"><code>litters_data_raw &lt;- read_csv(&quot;data/FAS_litters.csv&quot;)</code></pre>
+<pre><code>## Rows: 49 Columns: 8</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): Group, Litter Number
+## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>litters_clean_name &lt;- janitor::clean_names(litters_data_raw)
+litters_select &lt;- select(litters_clean_name, group,  pups_survive)
+litters_filtered &lt;- filter(litters_select, group == &quot;Con7&quot;)
+
+litters_df &lt;- read_csv(&quot;data/FAS_litters.csv&quot;) %&gt;% 
+                  janitor::clean_names() %&gt;% 
+                  select(group, pups_survive) %&gt;% 
+                  filter(group == &quot;Con7&quot;)</code></pre>
+<pre><code>## Rows: 49 Columns: 8</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): Group, Litter Number
+## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>litters_df &lt;- read_csv(&quot;data/FAS_litters.csv&quot;) %&gt;% 
+                  janitor::clean_names() %&gt;% 
+                  mutate(weight_change = gd18_weight - gd0_weight, 
+                         group = str_to_lower(group)) %&gt;% 
+                  drop_na(weight_change) %&gt;% 
+                  filter(group %in% c(&quot;con7&quot;, &quot;con8&quot;)) %&gt;% 
+                  select(litter_number, group, weight_change, everything())</code></pre>
+<pre><code>## Rows: 49 Columns: 8</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): Group, Litter Number
+## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 
 
