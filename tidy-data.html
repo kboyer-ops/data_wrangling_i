@@ -182,6 +182,17 @@ pre code {
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(haven)
 library(readxl)</code></pre>
+<pre class="r"><code>pulse_df &lt;- read_sas(&quot;public_pulse_data.sas7bdat&quot;) %&gt;% janitor::clean_names()</code></pre>
+<pre class="r"><code>pulse_tidy &lt;- 
+  pulse_df %&gt;% 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m, 
+    names_to = &quot;visit&quot;, 
+    values_to = &quot;bdi&quot;, 
+    names_prefix = &quot;bdi_score&quot;) %&gt;% 
+  mutate( 
+    visit = replace(visit, visit == &quot;bl&quot;, &quot;00m&quot;), 
+    visit = factor(visit))</code></pre>
 
 
 
