@@ -183,6 +183,8 @@ pre code {
 <pre class="r"><code>library(haven)
 library(readxl)</code></pre>
 <pre class="r"><code>pulse_df &lt;- read_sas(&quot;public_pulse_data.sas7bdat&quot;) %&gt;% janitor::clean_names()</code></pre>
+<div id="pivot-longer" class="section level2">
+<h2>Pivot longer</h2>
 <pre class="r"><code>pulse_tidy &lt;- 
   pulse_df %&gt;% 
   pivot_longer(
@@ -193,6 +195,45 @@ library(readxl)</code></pre>
   mutate( 
     visit = replace(visit, visit == &quot;bl&quot;, &quot;00m&quot;), 
     visit = factor(visit))</code></pre>
+</div>
+<div id="pivot-wider" class="section level2">
+<h2>Pivot wider</h2>
+<p>making up a results data table</p>
+<pre class="r"><code>analysis_df &lt;- 
+  tibble(
+    group = c(&quot;treatment&quot;, &quot;treatment&quot;, &quot;control&quot;, &quot;control&quot;), 
+    time = c(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;, &quot;b&quot;), 
+    group_mean = c(4, 8, 3, 6)
+  )
+
+analysis_df %&gt;% 
+  pivot_wider(
+    names_from = &quot;time&quot;, 
+    values_from = &quot;group_mean&quot;
+  ) %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">group</th>
+<th align="right">a</th>
+<th align="right">b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">treatment</td>
+<td align="right">4</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">control</td>
+<td align="right">3</td>
+<td align="right">6</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 
