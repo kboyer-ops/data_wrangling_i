@@ -195,6 +195,7 @@ library(readxl)</code></pre>
   mutate( 
     visit = replace(visit, visit == &quot;bl&quot;, &quot;00m&quot;), 
     visit = factor(visit))</code></pre>
+<p>Don’t use gather(), always use pivot_longer()</p>
 </div>
 <div id="pivot-wider" class="section level2">
 <h2>Pivot wider</h2>
@@ -233,6 +234,7 @@ analysis_df %&gt;%
 </tr>
 </tbody>
 </table>
+<p>Don’t use spread(), always use pivot_wider()</p>
 </div>
 <div id="bind_rows" class="section level2">
 <h2>bind_rows</h2>
@@ -257,6 +259,40 @@ lotr_df &lt;-
     names_to = &quot;sex&quot;, 
     values_to = &quot;words&quot;) %&gt;% 
   relocate(movie)</code></pre>
+</div>
+<div id="joins" class="section level2">
+<h2>joins</h2>
+<p>Look at FAS data. Imports and cleans the litters and pups dataframes.</p>
+<pre class="r"><code>litters_df &lt;- 
+  read_csv(&quot;data/FAS_litters.csv&quot;) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  separate(group, into = c(&quot;dose&quot;, &quot;day_of_tx&quot;), 3) %&gt;% 
+  relocate(litter_number) %&gt;% 
+  mutate(dose = str_to_lower(dose))</code></pre>
+<pre><code>## Rows: 49 Columns: 8</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): Group, Litter Number
+## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>pups_df &lt;- 
+  read_csv(&quot;data/FAS_pups.csv&quot;) %&gt;% 
+  janitor::clean_names() %&gt;% 
+  mutate(sex = recode(sex, `1` = &quot;male&quot;, `2` = &quot;female&quot;))</code></pre>
+<pre><code>## Rows: 313 Columns: 6</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): Litter Number
+## dbl (5): Sex, PD ears, PD eyes, PD pivot, PD walk</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Joining the datasets</p>
+<pre class="r"><code>fas_df &lt;- 
+  left_join(pups_df, litters_df, by = &quot;litter_number&quot;) %&gt;% 
+  relocate(litter_number, dose, day_of_tx)</code></pre>
 </div>
 
 
